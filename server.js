@@ -84,7 +84,12 @@ app.get('/menu/:storeCode', async (req, res) => {
     }
 });
 
-// Jalankan Server
-app.listen(PORT, () => {
-    console.log(`Server berjalan di http://localhost:${PORT}`);
-});
+// Jalankan Server hanya jika di lokal
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`Server berjalan di http://localhost:${PORT}`);
+    });
+}
+
+// Export app untuk Vercel Serverless
+module.exports = app;
